@@ -1,9 +1,13 @@
 window.addEventListener("load", init);
-window.addEventListener("click", galeria);
+/*window.addEventListener("click", galeria);*/
 
 
 function ID(elem) {
     return document.getElementById(elem);
+}
+
+function CLASS (elem){
+    return document.getElementsByClassName(elem);
 }
 
 var kepeim = [{
@@ -33,20 +37,24 @@ var kepeim = [{
 
 var kepindex = 0;
 function galeria(){
-    if (kepindex == 0){
-        var txt ="<div class='galeria' id='elsokep'><img src='"+kepeim[4].eleres+"' alt='"+kepeim[4].leírás+"' id='kivalasztott' onclick='elsokepClick()'></div><div class='galeria' id='masodikkep'><img src='"+kepeim[kepindex].eleres+"' alt='"+kepeim[kepindex].leírás+"' id='kivalasztott'></div><div class='galeria' id='harmadikkep'><img src='"+kepeim[kepindex+1].eleres+"'' alt='"+kepeim[kepindex+1].leírás+"' id='kivalasztott' onclick='harkepClick()'></div>";
-    }else if (kepindex == 4){
-    var txt ="<div class='galeria'  id='elsokep'><img src='"+kepeim[kepindex-1].eleres+"' alt='"+kepeim[kepindex-1].leírás+"' id='kivalasztott' onclick='elsokepClick()'></div><div class='galeria' id='masodikkep'><img src='"+kepeim[kepindex].eleres+"' alt='"+kepeim[kepindex].leírás+"' '></div><div class='galeria' id='harmadikkep'><img src='"+kepeim[0].eleres+"'' alt='"+kepeim[0].leírás+"' id='kivalasztott' onclick='harkepClick()'></div>";
-    }else{
-        var txt ="<div class='galeria' id='elsokep'><img src='"+kepeim[kepindex-1].eleres+"' alt='"+kepeim[kepindex-1].leírás+"' '></div><div class='galeria' id='masodikkep'><img src='"+kepeim[kepindex].eleres+"' alt='"+kepeim[kepindex].leírás+"' id='kivalasztott' onclick='elsokepClick()'></div><div class='galeria' id='harmadikkep'><img src='"+kepeim[kepindex+1].eleres+"'' alt='"+kepeim[kepindex+1].leírás+"' id='kivalasztott' onclick='harkepClick()'></div>";
+    var txt="";
+    for (let index = 0; index < kepeim.length; index++) {
+        txt += '<div class="kep" ><img id="'+index+'" src="'+ kepeim[index].eleres+'"alt="'+kepeim[index].leírás+'"></div>';
     }
     ID("inp").innerHTML=txt;
+    for (let index = 0; index < kepeim.length; index++) {
+        ID(index).addEventListener("click",kepkivalasztas);
+        CLASS("kep")[index].style.border="5px solid red";
+        CLASS("kep")[index].className+="kepekformazasa";
+    }
 }
 function init() {
+    megjelenit();
+    galeria();
     ID("balra").addEventListener("click", balra);
     ID("jobbra").addEventListener("click", jobbra);
 }
-function megjelenit(kepindex) {
+function megjelenit() {
     ID("kivalasztott").src = kepeim[kepindex].eleres;
     ID("kivalasztott").alt = kepeim[kepindex].cim;
 
@@ -61,12 +69,19 @@ function balra() {
     console.log(kepindex);
     megjelenit(kepindex);
 }
+
+function kepkivalasztas(){
+    console.log(event.target.id);
+    kepindex=event.target.id;
+    megjelenit();
+}
+
 function jobbra() {
     if(kepindex >= kepeim.length-1){
         kepindex = 0;
     }
     else{
-        kepindex += 1;
+        kepindex ++;
     }
     console.log(kepindex);
     megjelenit(kepindex)

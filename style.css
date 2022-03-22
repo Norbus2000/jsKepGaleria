@@ -19,10 +19,13 @@ article img{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .contaienr div{
     align-items: center;   
+}
+section img {
+    width: 100%;
 }
 .kepek{
     width: 80%;
@@ -36,6 +39,11 @@ article img{
     border: 1px solid black;
     border-radius: 10px;
 }
-footer div{
+section div{
     width: 32%;
+}
+.kepekformazasa {
+    border:2px solid green;
+    padding:10px;
+    background-color: aqua;
 }
